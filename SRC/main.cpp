@@ -7,10 +7,13 @@ using namespace std;
 
 void adminMenu() {
     cout << "\n--- Admin Menu ---\n";
-    cout << "1. Manage Modules\n";
+    cout << "1. Add Module\n";
     cout << "2. View Modules\n";
+    cout << "3. Edit Module\n";
+    cout << "4. Delete Module\n";
     cout << "9. Logout\n";
 }
+
 
 void studentMenu() {
     cout << "\n--- Student Menu ---\n";
@@ -51,12 +54,19 @@ int main() {
                 case 2:
                     moduleManager.viewModules();
                     break;
+                case 3:
+                    moduleManager.editModule();
+                    break;
+                case 4:
+                    moduleManager.deleteModule();
+                    break;
                 case 9:
                     cout << "Logging out...\n";
                     return 0;
                 default:
                     cout << "Invalid option.\n";
             }
+            
         } else {
             studentMenu();
             cout << "Enter your choice: ";

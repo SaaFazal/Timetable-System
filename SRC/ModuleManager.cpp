@@ -41,3 +41,68 @@ void ModuleManager::viewModules() const {
         }
     }
 }
+
+void ModuleManager::editModule() {
+    if (modules.empty()) {
+        cout << "\nNo modules available to edit.\n";
+        return;
+    }
+
+    string code;
+    cout << "\nEnter Module Code to edit: ";
+    getline(cin >> ws, code);
+
+    bool found = false;
+    for (auto& m : modules) {
+        if (m.getModuleCode() == code) {
+            found = true;
+
+            string newName, newLecturer, newGroup, newSession, newDay, newTime, newRoom;
+
+            cout << "Enter new Module Name: ";
+            getline(cin, newName);
+            cout << "Enter new Lecturer: ";
+            getline(cin, newLecturer);
+            cout << "Enter new Group: ";
+            getline(cin, newGroup);
+            cout << "Enter new Session Type: ";
+            getline(cin, newSession);
+            cout << "Enter new Day: ";
+            getline(cin, newDay);
+            cout << "Enter new Time: ";
+            getline(cin, newTime);
+            cout << "Enter new Room: ";
+            getline(cin, newRoom);
+
+            // Replace the module entirely
+            m = Module(code, newName, newLecturer, newGroup, newSession, newDay, newTime, newRoom);
+
+            cout << "\nModule updated successfully!\n";
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Module not found.\n";
+    }
+}
+void ModuleManager::deleteModule() {
+    if (modules.empty()) {
+        cout << "\nNo modules available to delete.\n";
+        return;
+    }
+
+    string code;
+    cout << "\nEnter Module Code to delete: ";
+    getline(cin >> ws, code);
+
+    for (auto it = modules.begin(); it != modules.end(); ++it) {
+        if (it->getModuleCode() == code) {
+            modules.erase(it);
+            cout << "Module deleted successfully.\n";
+            return;
+        }
+    }
+
+    cout << "Module not found.\n";
+}

@@ -11,6 +11,8 @@ private:
 public:
     void addModule();
     void viewModules() const;
+    void editModule();
+    void deleteModule();
 };
 
 #endif
