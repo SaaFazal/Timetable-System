@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "Module.h"
 
 using namespace std;
 
@@ -54,7 +55,8 @@ int main() {
             // Call student functions here
         }
     }
-
+    Module m("CS2001", "Data Structures", "Dr. Smith", "Group A", "Lecture", "Monday", "10 AM", "MAE 202");
+    m.display();
     cout << "Logged out successfully.\n";
     return 0;
 }
