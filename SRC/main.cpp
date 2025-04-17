@@ -2,6 +2,8 @@
 #include <string>
 #include "Module.h"
 #include "ModuleManager.h"
+#include "StudentManager.h"
+
 
 using namespace std;
 
@@ -11,8 +13,11 @@ void adminMenu() {
     cout << "2. View Modules\n";
     cout << "3. Edit Module\n";
     cout << "4. Delete Module\n";
+    cout << "5. Add Student\n";
+    cout << "6. View Students\n";
     cout << "9. Logout\n";
 }
+
 
 
 void studentMenu() {
@@ -28,6 +33,7 @@ int main() {
     int choice;
 
     ModuleManager moduleManager;
+    StudentManager studentManager;
 
     cout << "Welcome to NTU Timetabling System\n";
     cout << "Enter username: ";
@@ -60,12 +66,19 @@ int main() {
                 case 4:
                     moduleManager.deleteModule();
                     break;
+                case 5:
+                    studentManager.addStudent();
+                    break;
+                case 6:
+                    studentManager.viewStudents();
+                    break;
                 case 9:
                     cout << "Logging out...\n";
                     return 0;
                 default:
                     cout << "Invalid option.\n";
             }
+            
             
         } else {
             studentMenu();
