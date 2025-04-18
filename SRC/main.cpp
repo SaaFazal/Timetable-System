@@ -3,6 +3,8 @@
 #include "Module.h"
 #include "ModuleManager.h"
 #include "StudentManager.h"
+#include "LecturerManager.h"
+
 
 
 using namespace std;
@@ -15,6 +17,8 @@ void adminMenu() {
     cout << "4. Delete Module\n";
     cout << "5. Add Student\n";
     cout << "6. View Students\n";
+    cout << "7. Add Lecturer\n";
+    cout << "8. View Lecturers\n";
     cout << "9. Logout\n";
 }
 
@@ -34,6 +38,8 @@ int main() {
 
     ModuleManager moduleManager;
     StudentManager studentManager;
+    LecturerManager lecturerManager;
+
 
     cout << "Welcome to NTU Timetabling System\n";
     cout << "Enter username: ";
@@ -72,6 +78,13 @@ int main() {
                 case 6:
                     studentManager.viewStudents();
                     break;
+                case 7:
+                    lecturerManager.addLecturer();
+                    break;
+                case 8:
+                    lecturerManager.viewLecturers();
+                    break;
+                
                 case 9:
                     cout << "Logging out...\n";
                     return 0;
