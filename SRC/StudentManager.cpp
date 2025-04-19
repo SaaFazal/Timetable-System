@@ -31,3 +31,51 @@ void StudentManager::viewStudents() const {
         }
     }
 }
+
+void StudentManager::editStudent() {
+    if (students.empty()) {
+        cout << "\nNo students to edit.\n";
+        return;
+    }
+
+    string id;
+    cout << "Enter Student ID to edit: ";
+    getline(cin >> ws, id);
+
+    for (auto& s : students) {
+        if (s.getID() == id) {
+            string newName, newGroup;
+            cout << "Enter new name: ";
+            getline(cin, newName);
+            cout << "Enter new group: ";
+            getline(cin, newGroup);
+            s = Student(id, newName, newGroup);
+            cout << "Student updated successfully!\n";
+            return;
+        }
+    }
+
+    cout << "Student not found.\n";
+}
+
+void StudentManager::deleteStudent() {
+    if (students.empty()) {
+        cout << "\nNo students to delete.\n";
+        return;
+    }
+
+    string id;
+    cout << "Enter Student ID to delete: ";
+    getline(cin >> ws, id);
+
+    for (auto it = students.begin(); it != students.end(); ++it) {
+        if (it->getID() == id) {
+            students.erase(it);
+            cout << "Student deleted successfully.\n";
+            return;
+        }
+    }
+
+    cout << "Student not found.\n";
+}
+

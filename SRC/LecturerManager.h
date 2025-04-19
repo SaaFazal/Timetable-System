@@ -11,6 +11,8 @@ private:
 public:
     void addLecturer();
     void viewLecturers() const;
+    void editLecturer();
+    void deleteLecturer();
 
 };
 

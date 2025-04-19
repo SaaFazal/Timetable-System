@@ -11,6 +11,9 @@ private:
 public:
     void addStudent();
     void viewStudents() const;
+    void editStudent();
+    void deleteStudent();
+
 };
 
 #endif

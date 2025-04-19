@@ -29,3 +29,50 @@ void RoomManager::viewRooms() const {
         }
     }
 }
+
+void RoomManager::editRoom() {
+    if (rooms.empty()) {
+        cout << "\nNo rooms to edit.\n";
+        return;
+    }
+
+    string id;
+    cout << "Enter Room ID to edit: ";
+    getline(cin >> ws, id);
+
+    for (auto& r : rooms) {
+        if (r.getID() == id) {
+            string newName, newType;
+            cout << "Enter new Room Name: ";
+            getline(cin, newName);
+            cout << "Enter new Room Type: ";
+            getline(cin, newType);
+            r = Room(id, newName, newType);
+            cout << "Room updated successfully!\n";
+            return;
+        }
+    }
+
+    cout << "Room not found.\n";
+}
+
+void RoomManager::deleteRoom() {
+    if (rooms.empty()) {
+        cout << "\nNo rooms to delete.\n";
+        return;
+    }
+
+    string id;
+    cout << "Enter Room ID to delete: ";
+    getline(cin >> ws, id);
+
+    for (auto it = rooms.begin(); it != rooms.end(); ++it) {
+        if (it->getID() == id) {
+            rooms.erase(it);
+            cout << "Room deleted successfully.\n";
+            return;
+        }
+    }
+
+    cout << "Room not found.\n";
+}

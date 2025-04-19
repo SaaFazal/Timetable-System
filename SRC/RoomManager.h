@@ -11,6 +11,9 @@ private:
 public:
     void addRoom();
     void viewRooms() const;
+    void editRoom();
+    void deleteRoom();
+
 };
 
 #endif

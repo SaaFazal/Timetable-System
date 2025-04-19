@@ -28,3 +28,47 @@ void LecturerManager::viewLecturers() const {
         }
     }
 }
+void LecturerManager::editLecturer() {
+    if (lecturers.empty()) {
+        cout << "\nNo lecturers to edit.\n";
+        return;
+    }
+
+    string id;
+    cout << "Enter Lecturer ID to edit: ";
+    getline(cin >> ws, id);
+
+    for (auto& l : lecturers) {
+        if (l.getID() == id) {
+            string newName;
+            cout << "Enter new name: ";
+            getline(cin, newName);
+            l = Lecturer(id, newName);
+            cout << "Lecturer updated successfully!\n";
+            return;
+        }
+    }
+
+    cout << "Lecturer not found.\n";
+}
+
+void LecturerManager::deleteLecturer() {
+    if (lecturers.empty()) {
+        cout << "\nNo lecturers to delete.\n";
+        return;
+    }
+
+    string id;
+    cout << "Enter Lecturer ID to delete: ";
+    getline(cin >> ws, id);
+
+    for (auto it = lecturers.begin(); it != lecturers.end(); ++it) {
+        if (it->getID() == id) {
+            lecturers.erase(it);
+            cout << "Lecturer deleted successfully.\n";
+            return;
+        }
+    }
+
+    cout << "Lecturer not found.\n";
+}
