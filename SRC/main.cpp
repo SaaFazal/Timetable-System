@@ -5,6 +5,7 @@
 #include "StudentManager.h"
 #include "LecturerManager.h"
 #include "RoomManager.h"
+#include "TimetableManager.h"
 
 using namespace std;
 
@@ -38,6 +39,11 @@ void adminMenu() {
     cout << "\n-- System --\n";
     cout << "17. Logout\n";
 
+    cout << "\n-- Timetable Management --\n";
+    cout << "18. Add Timetable Entry\n";
+    cout << "19. View Timetable (Group + Week)\n";
+
+
     cout << "================================\n";
 }
 
@@ -59,8 +65,7 @@ int main() {
     StudentManager studentManager;
     LecturerManager lecturerManager;
     RoomManager roomManager;
-
-
+    TimetableManager timetableManager;
 
     cout << "Welcome to NTU Timetabling System\n";
     cout << "Enter username: ";
@@ -98,7 +103,9 @@ int main() {
                 case 15: roomManager.editRoom(); break;
                 case 16: roomManager.deleteRoom(); break;
                 case 17: cout << "Logging out...\n"; return 0;
-                     
+                case 18: timetableManager.addTimetableEntry(); break;
+                case 19: timetableManager.viewTimetableByGroupAndWeek(); break;
+   
                 default:
                     cout << "Invalid option.\n";
             }
