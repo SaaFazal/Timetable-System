@@ -52,16 +52,18 @@ void adminMenu() {
 
 
 void studentMenu() {
-    cout << "\n--- Student Menu ---\n";
+    cout << "\n========== Student Menu ==========\n";
     cout << "1. View Timetable\n";
     cout << "2. Search Timetable\n";
     cout << "3. Export to CSV\n";
     cout << "4. Logout\n";
+    cout << "================================\n";
 }
 
 int main() {
     string username, role;
     int choice;
+    string studentGroup;
 
     ModuleManager moduleManager;
     StudentManager studentManager;
@@ -76,15 +78,23 @@ int main() {
 
 
     cout << "Welcome to NTU Timetabling System\n";
-    cout << "Enter username: ";
-    cin >> username;
-
-    // Very basic login simulation
-    if (username == "admin") {
-        role = "admin";
-    } else {
-        role = "student";
+    while (true) {
+        cout << "Enter username: ";
+        cin >> username;
+    
+        if (username == "admin") {
+            role = "admin";
+            break;
+        } else if (username == "student") {
+            role = "student";
+            cout << "Enter your group name: ";
+            cin >> studentGroup; 
+            break;
+        } else {
+            cout << "Invalid username. Try again.\n";
+        }
     }
+    
 
     while (true) {
         if (role == "admin") {
@@ -113,7 +123,13 @@ int main() {
                 case 14: roomManager.viewRooms(); break;
                 case 15: roomManager.editRoom(); break;
                 case 16: roomManager.deleteRoom(); break;
-                case 17: cout << "Logging out...\n"; return 0;
+                case 17: cout << "Logging out and saving data...\n";
+                moduleManager.saveToFile("data_modules.csv");
+                studentManager.saveToFile("data_students.csv");
+                lecturerManager.saveToFile("data_lecturers.csv");
+                roomManager.saveToFile("data_rooms.csv");
+                timetableManager.saveToFile("data_timetable.csv");
+                return 0;
                 case 18: timetableManager.addTimetableEntry(); break;
                 case 19: timetableManager.viewTimetableByGroupAndWeek(); break;
                 case 20:
@@ -137,13 +153,27 @@ int main() {
             cin.ignore();
 
             switch (choice) {
-            case 1:
-            case 2:
-            case 3:
-                cout << "Feature coming soon!\n";
-                break;
-            case 4:
-                cout << "Logging out...\n";
+                case 1: {
+                    int week;
+                    cout << "Enter week number: ";
+                    cin >> week;
+                    timetableManager.viewTimetableByGroupAndWeek(studentGroup, week);
+                    break;
+                }
+                case 2:
+                    cout << "Search feature coming soon!\n";
+                    break;
+                case 3:
+                    timetableManager.exportGroupTimetable(studentGroup);
+                    break;
+            
+                case 4:
+                cout << "Logging out and saving data...\n";
+                moduleManager.saveToFile("data_modules.csv");
+                studentManager.saveToFile("data_students.csv");
+                lecturerManager.saveToFile("data_lecturers.csv");
+                roomManager.saveToFile("data_rooms.csv");
+                timetableManager.saveToFile("data_timetable.csv");
             return 0;
             default:
             cout << "Invalid option.\n";
@@ -151,10 +181,5 @@ int main() {
 
         }
     }
-    moduleManager.saveToFile("data_modules.csv");
-    studentManager.saveToFile("data_students.csv");
-    lecturerManager.saveToFile("data_lecturers.csv");
-    roomManager.saveToFile("data_rooms.csv");
-    timetableManager.saveToFile("data_timetable.csv");
     return 0;
 }

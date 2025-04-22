@@ -141,3 +141,40 @@ void TimetableManager::loadFromFile(const std::string& filename) {
         return TimetableEntry(week, group, module, lecturer, room, session, day, time);
     });
 }
+void TimetableManager::viewTimetableByGroupAndWeek(const string& group, int week) const {
+    cout << "\n--- Timetable for Group: " << group << " Week: " << week << " ---\n";
+    bool found = false;
+    for (const auto& e : entries) {
+        if (e.getGroup() == group && e.getWeek() == week) {
+            e.display();
+            cout << "----------------------\n";
+            found = true;
+        }
+    }
+    if (!found) cout << "No entries found.\n";
+}
+
+void TimetableManager::exportGroupTimetable(const string& group) const {
+    ofstream outFile("timetable_" + group + ".csv");
+    if (!outFile) {
+        cout << "Failed to create CSV.\n";
+        return;
+    }
+
+    outFile << "Week,Module,Lecturer,Room,Session Type,Day,Time\n";
+
+    for (const auto& e : entries) {
+        if (e.getGroup() == group) {
+            outFile << e.getWeek() << ","
+                    << e.getModule() << ","
+                    << e.getLecturer() << ","
+                    << e.getRoom() << ","
+                    << e.getSessionType() << ","
+                    << e.getDay() << ","
+                    << e.getTime() << "\n";
+        }
+    }
+
+    outFile.close();
+    cout << "Exported timetable to timetable_" << group << ".csv\n";
+}

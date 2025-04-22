@@ -28,10 +28,7 @@ class File {
         template<typename T>
         static void loadCSV(const std::string& filename, std::vector<T>& items, std::function<T(const std::string&)> fromCSV) {
             std::ifstream inFile(filename);
-            if (!inFile) {
-                std::cout << "No existing file: " << filename << "\n";
-                return;
-            }
+            if (!inFile) return;
 
             items.clear();
             std::string line;
@@ -40,7 +37,7 @@ class File {
             }
 
             inFile.close();
-            std::cout << "This is Loaded from " << filename << "\n";
+            
         }
 };
 

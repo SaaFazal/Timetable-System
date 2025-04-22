@@ -16,6 +16,9 @@ public:
     void exportTimetableToCSV() const;
     void saveToFile(const std::string& filename) const;
     void loadFromFile(const std::string& filename);
+    void viewTimetableByGroupAndWeek(const std::string& group, int week) const;
+    void exportGroupTimetable(const std::string& group) const;
+
 };
 
 #endif
