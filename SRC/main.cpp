@@ -161,8 +161,9 @@ int main() {
                     break;
                 }
                 case 2:
-                    cout << "Search feature coming soon!\n";
+                    timetableManager.searchTimetableByGroup(studentGroup);
                     break;
+
                 case 3:
                     timetableManager.exportGroupTimetable(studentGroup);
                     break;

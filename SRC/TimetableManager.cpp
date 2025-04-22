@@ -178,3 +178,40 @@ void TimetableManager::exportGroupTimetable(const string& group) const {
     outFile.close();
     cout << "Exported timetable to timetable_" << group << ".csv\n";
 }
+void TimetableManager::searchTimetableByGroup(const string& group) const {
+    if (entries.empty()) {
+        cout << "No timetable data available.\n";
+        return;
+    }
+
+    cout << "\nSearch by:\n";
+    cout << "1. Module\n2. Lecturer\n3. Room\nChoose an option: ";
+    int option;
+    cin >> option;
+    cin.ignore();
+
+    string query;
+    cout << "Enter keyword: ";
+    getline(cin, query);
+
+    bool found = false;
+    for (const auto& e : entries) {
+        if (e.getGroup() != group) continue;
+
+        bool match = false;
+        switch (option) {
+            case 1: match = e.getModule().find(query) != string::npos; break;
+            case 2: match = e.getLecturer().find(query) != string::npos; break;
+            case 3: match = e.getRoom().find(query) != string::npos; break;
+            default: cout << "Invalid option.\n"; return;
+        }
+
+        if (match) {
+            e.display();
+            cout << "----------------------\n";
+            found = true;
+        }
+    }
+
+    if (!found) cout << "No matching entries found.\n";
+}

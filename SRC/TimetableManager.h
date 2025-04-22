@@ -18,6 +18,8 @@ public:
     void loadFromFile(const std::string& filename);
     void viewTimetableByGroupAndWeek(const std::string& group, int week) const;
     void exportGroupTimetable(const std::string& group) const;
+    void searchTimetableByGroup(const std::string& group) const;
+
 
 };
 
