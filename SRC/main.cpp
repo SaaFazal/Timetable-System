@@ -6,6 +6,7 @@
 #include "LecturerManager.h"
 #include "RoomManager.h"
 #include "TimetableManager.h"
+#include "File.h"
 
 using namespace std;
 
@@ -43,6 +44,7 @@ void adminMenu() {
     cout << "18. Add Timetable Entry\n";
     cout << "19. View Timetable (Group + Week)\n";
 
+    cout << "20. Export Timetable to CSV\n";
 
     cout << "================================\n";
 }
@@ -66,6 +68,12 @@ int main() {
     LecturerManager lecturerManager;
     RoomManager roomManager;
     TimetableManager timetableManager;
+    moduleManager.loadFromFile("data_modules.csv");
+    studentManager.loadFromFile("data_students.csv");
+    lecturerManager.loadFromFile("data_lecturers.csv");
+    roomManager.loadFromFile("data_rooms.csv");
+    timetableManager.loadFromFile("data_timetable.csv");
+
 
     cout << "Welcome to NTU Timetabling System\n";
     cout << "Enter username: ";
@@ -81,10 +89,13 @@ int main() {
     while (true) {
         if (role == "admin") {
             adminMenu();
-            cout << "Enter your choice: ";
-            cin >> choice;
-            cin.ignore(); // clear input buffer
-
+    cout << "Enter your choice: ";
+    if (!(cin >> choice)) {
+    cout << "Invalid input. Please enter a number.\n";
+    cin.clear();
+    cin.ignore(1000, '\n');
+    continue;
+}
             switch (choice) {
                 case 1: moduleManager.addModule(); break;
                 case 2: moduleManager.viewModules(); break;
@@ -105,7 +116,10 @@ int main() {
                 case 17: cout << "Logging out...\n"; return 0;
                 case 18: timetableManager.addTimetableEntry(); break;
                 case 19: timetableManager.viewTimetableByGroupAndWeek(); break;
-   
+                case 20:
+                    timetableManager.exportTimetableToCSV();
+                    break;
+
                 default:
                     cout << "Invalid option.\n";
             }
@@ -114,15 +128,33 @@ int main() {
         } else {
             studentMenu();
             cout << "Enter your choice: ";
-            cin >> choice;
-            if (choice == 4) {
-                cout << "Logging out...\n";
-                return 0;
-            } else {
-                cout << "Feature coming soon!\n";
+            if (!(cin >> choice)) {
+            cout << "Invalid input. Please enter a number.\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
             }
+            cin.ignore();
+
+            switch (choice) {
+            case 1:
+            case 2:
+            case 3:
+                cout << "Feature coming soon!\n";
+                break;
+            case 4:
+                cout << "Logging out...\n";
+            return 0;
+            default:
+            cout << "Invalid option.\n";
+            }
+
         }
     }
-
+    moduleManager.saveToFile("data_modules.csv");
+    studentManager.saveToFile("data_students.csv");
+    lecturerManager.saveToFile("data_lecturers.csv");
+    roomManager.saveToFile("data_rooms.csv");
+    timetableManager.saveToFile("data_timetable.csv");
     return 0;
 }

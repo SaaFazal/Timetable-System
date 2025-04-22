@@ -1,5 +1,7 @@
 #include "ModuleManager.h"
 #include <iostream>
+#include "File.h"
+#include <sstream>
 
 using namespace std;
 
@@ -105,4 +107,28 @@ void ModuleManager::deleteModule() {
     }
 
     cout << "Module not found.\n";
+}
+void ModuleManager::saveToFile(const std::string& filename) const {
+    File::saveCSV<Module>(filename, modules, [](const Module& m) {
+        return m.getModuleCode() + "," + m.getModuleName() + "," + m.getLecturer() + "," +
+               m.getGroupName() + "," + m.getSessionType() + "," +
+               m.getDay() + "," + m.getTime() + "," + m.getRoom();
+    });
+}
+void ModuleManager::loadFromFile(const std::string& filename) {
+    File::loadCSV<Module>(filename, modules, [](const std::string& line) {
+        std::stringstream ss(line);
+        std::string code, name, lecturer, group, session, day, time, room;
+
+        getline(ss, code, ',');
+        getline(ss, name, ',');
+        getline(ss, lecturer, ',');
+        getline(ss, group, ',');
+        getline(ss, session, ',');
+        getline(ss, day, ',');
+        getline(ss, time, ',');
+        getline(ss, room, ',');
+
+        return Module(code, name, lecturer, group, session, day, time, room);
+    });
 }

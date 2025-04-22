@@ -1,5 +1,7 @@
 #include "RoomManager.h"
 #include <iostream>
+#include "File.h"
+#include <sstream>
 
 using namespace std;
 
@@ -75,4 +77,20 @@ void RoomManager::deleteRoom() {
     }
 
     cout << "Room not found.\n";
+}
+void RoomManager::saveToFile(const std::string& filename) const {
+    File::saveCSV<Room>(filename, rooms, [](const Room& r) {
+        return r.getID() + "," + r.getName() + "," + r.getType();
+    });
+}
+
+void RoomManager::loadFromFile(const std::string& filename) {
+    File::loadCSV<Room>(filename, rooms, [](const std::string& line) {
+        std::stringstream ss(line);
+        std::string id, name, type;
+        getline(ss, id, ',');
+        getline(ss, name, ',');
+        getline(ss, type, ',');
+        return Room(id, name, type);
+    });
 }

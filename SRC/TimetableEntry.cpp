@@ -12,6 +12,16 @@ TimetableEntry::TimetableEntry(int week, string group, string module, string lec
 
 int TimetableEntry::getWeek() const { return weekNumber; }
 string TimetableEntry::getGroup() const { return group; }
+std::string TimetableEntry::getDay() const { return day;}
+
+std::string TimetableEntry::getTime() const { return time; }
+
+std::string TimetableEntry::getLecturer() const { return lecturer; }
+
+std::string TimetableEntry::getRoom() const { return room; }
+std::string TimetableEntry::getModule() const { return module; }
+std::string TimetableEntry::getSessionType() const { return sessionType; }
+
 
 void TimetableEntry::display() const {
     cout << "Week: " << weekNumber << ", Group: " << group << endl;

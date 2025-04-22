@@ -1,5 +1,8 @@
 #include "StudentManager.h"
 #include <iostream>
+#include "File.h"
+#include <sstream>
+
 
 using namespace std;
 
@@ -79,3 +82,19 @@ void StudentManager::deleteStudent() {
     cout << "Student not found.\n";
 }
 
+void StudentManager::saveToFile(const std::string& filename) const {
+    File::saveCSV<Student>(filename, students, [](const Student& s) {
+        return s.getID() + "," + s.getName() + "," + s.getGroup();
+    });
+}
+
+void StudentManager::loadFromFile(const std::string& filename) {
+    File::loadCSV<Student>(filename, students, [](const std::string& line) {
+        std::stringstream ss(line);
+        std::string id, name, group;
+        getline(ss, id, ',');
+        getline(ss, name, ',');
+        getline(ss, group, ',');
+        return Student(id, name, group);
+    });
+}

@@ -23,6 +23,13 @@ public:
     int getWeek() const;
     std::string getGroup() const;
     void display() const;
+    std::string getLecturer() const;
+    std::string getRoom() const;
+    std::string getDay() const;
+    std::string getTime() const;
+    std::string getModule() const;
+    std::string getSessionType() const;
+
 };
 
 #endif

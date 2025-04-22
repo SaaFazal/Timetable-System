@@ -13,6 +13,8 @@ public:
     void viewLecturers() const;
     void editLecturer();
     void deleteLecturer();
+    void saveToFile(const std::string& filename) const;
+    void loadFromFile(const std::string& filename);
 
 };
 

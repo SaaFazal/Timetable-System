@@ -1,5 +1,7 @@
 #include "LecturerManager.h"
 #include <iostream>
+#include "File.h"
+#include <sstream>
 
 using namespace std;
 
@@ -71,4 +73,19 @@ void LecturerManager::deleteLecturer() {
     }
 
     cout << "Lecturer not found.\n";
+}
+void LecturerManager::saveToFile(const std::string& filename) const {
+    File::saveCSV<Lecturer>(filename, lecturers, [](const Lecturer& l) {
+        return l.getID() + "," + l.getName();
+    });
+}
+
+void LecturerManager::loadFromFile(const std::string& filename) {
+    File::loadCSV<Lecturer>(filename, lecturers, [](const std::string& line) {
+        std::stringstream ss(line);
+        std::string id, name;
+        getline(ss, id, ',');
+        getline(ss, name, ',');
+        return Lecturer(id, name);
+    });
 }

@@ -1,5 +1,8 @@
 #include "TimetableManager.h"
 #include <iostream>
+#include <fstream>
+#include "File.h"
+#include <sstream>
 
 using namespace std;
 
@@ -25,8 +28,15 @@ void TimetableManager::addTimetableEntry() {
     getline(cin, day);
     cout << "Enter Time (e.g. 10 AM): ";
     getline(cin, time);
+    
+    TimetableEntry entry(week, group, module, lecturer, room, sessionType, day, time);
 
-    entries.push_back(TimetableEntry(week, group, module, lecturer, room, sessionType, day, time));
+    if (hasConflict(entry)) {
+    cout << "Conflict detected! Entry not added.\n";
+    return;
+    }
+
+    entries.push_back(entry);
     cout << "Timetable entry added successfully!\n";
 }
 
@@ -57,4 +67,77 @@ void TimetableManager::viewTimetableByGroupAndWeek() {
     if (!found) {
         cout << "No entries found for that group and week.\n";
     }
+}
+bool TimetableManager::hasConflict(const TimetableEntry& newEntry) const {
+    for (const auto& e : entries) {
+        if (
+            e.getWeek() == newEntry.getWeek() &&
+            e.getDay() == newEntry.getDay() &&
+            e.getTime() == newEntry.getTime() &&
+            (
+                e.getGroup() == newEntry.getGroup() ||
+                e.getLecturer() == newEntry.getLecturer() ||
+                e.getRoom() == newEntry.getRoom()
+            )
+        ) {
+            return true;
+        }
+    }
+    return false;
+}
+void TimetableManager::exportTimetableToCSV() const {
+    if (entries.empty()) {
+        cout << "No timetable entries to export.\n";
+        return;
+    }
+
+    ofstream outFile("timetable_export.csv");
+
+    if (!outFile) {
+        cout << "Failed to create CSV file.\n";
+        return;
+    }
+
+    outFile << "Week,Group,Module,Lecturer,Room,Session Type,Day,Time\n";
+
+    for (const auto& e : entries) {
+        outFile << e.getWeek() << ","
+                << e.getGroup() << ","
+                << e.getModule() << ","
+                << e.getLecturer() << ","
+                << e.getRoom() << ","
+                << e.getSessionType() << ","
+                << e.getDay() << ","
+                << e.getTime() << "\n";
+    }
+
+    outFile.close();
+    cout << "Timetable exported to 'timetable_export.csv'!\n";
+}
+void TimetableManager::saveToFile(const std::string& filename) const {
+    File::saveCSV<TimetableEntry>(filename, entries, [](const TimetableEntry& e) {
+        return std::to_string(e.getWeek()) + "," + e.getGroup() + "," +
+               e.getModule() + "," + e.getLecturer() + "," + e.getRoom() + "," +
+               e.getSessionType() + "," + e.getDay() + "," + e.getTime();
+    });
+}
+
+void TimetableManager::loadFromFile(const std::string& filename) {
+    File::loadCSV<TimetableEntry>(filename, entries, [](const std::string& line) {
+        std::stringstream ss(line);
+        int week;
+        std::string weekStr, group, module, lecturer, room, session, day, time;
+
+        getline(ss, weekStr, ',');
+        week = std::stoi(weekStr);
+        getline(ss, group, ',');
+        getline(ss, module, ',');
+        getline(ss, lecturer, ',');
+        getline(ss, room, ',');
+        getline(ss, session, ',');
+        getline(ss, day, ',');
+        getline(ss, time, ',');
+
+        return TimetableEntry(week, group, module, lecturer, room, session, day, time);
+    });
 }
