@@ -83,9 +83,20 @@ int main() {
         cin >> username;
     
         if (username == "admin") {
-            role = "admin";
-            break;
-        } else if (username == "student") {
+            string password;
+            cout << "Enter password: ";
+            cin >> password;
+        
+            if (password == "admin123") {
+                role = "admin";
+                break;
+            } else {
+                cout << "Incorrect password.\n";
+                continue;
+            }
+        }
+        
+        else if (username == "student") {
             role = "student";
             cout << "Enter your group name: ";
             cin >> studentGroup; 
