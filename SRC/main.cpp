@@ -37,14 +37,14 @@ void adminMenu() {
     cout << "15. Edit Room\n";
     cout << "16. Delete Room\n";
 
-    cout << "\n-- System --\n";
-    cout << "17. Logout\n";
-
     cout << "\n-- Timetable Management --\n";
-    cout << "18. Add Timetable Entry\n";
-    cout << "19. View Timetable (Group + Week)\n";
+    cout << "17. Add Timetable Entry\n";
+    cout << "18. View Timetable (Group + Week)\n";
 
-    cout << "20. Export Timetable to CSV\n";
+    cout << "19. Export Timetable to CSV\n";
+
+    cout << "\n-- System --\n";
+    cout << "20. Logout\n";
 
     cout << "================================\n";
 }
@@ -134,19 +134,18 @@ int main() {
                 case 14: roomManager.viewRooms(); break;
                 case 15: roomManager.editRoom(); break;
                 case 16: roomManager.deleteRoom(); break;
-                case 17: cout << "Logging out and saving data...\n";
+                case 17: timetableManager.addTimetableEntry(); break;
+                case 18: timetableManager.viewTimetableByGroupAndWeek(); break;
+                case 19:
+                    timetableManager.exportTimetableToCSV();
+                    break;
+                case 20: cout << "Logging out and saving data...\n";
                 moduleManager.saveToFile("data_modules.csv");
                 studentManager.saveToFile("data_students.csv");
                 lecturerManager.saveToFile("data_lecturers.csv");
                 roomManager.saveToFile("data_rooms.csv");
                 timetableManager.saveToFile("data_timetable.csv");
                 return 0;
-                case 18: timetableManager.addTimetableEntry(); break;
-                case 19: timetableManager.viewTimetableByGroupAndWeek(); break;
-                case 20:
-                    timetableManager.exportTimetableToCSV();
-                    break;
-
                 default:
                     cout << "Invalid option.\n";
             }

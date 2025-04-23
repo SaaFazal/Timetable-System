@@ -4,20 +4,20 @@
 
 | Test ID | Scenario Description                                 | Expected Outcome                                             | Pass/Fail |
 |---------|------------------------------------------------------|--------------------------------------------------------------|-----------|
-| T1      | Admin logs in with correct password                  | Admin menu is shown                                          | ✅ Pass   |
-| T2      | Admin enters wrong password                          | Access is denied, prompt to retry                            | ✅ Pass   |
-| T3      | Admin adds a new module                              | Module is saved and viewable                                 | ✅ Pass   |
-| T4      | Admin edits an existing module                       | Changes are reflected in view                                | ✅ Pass   |
-| T5      | Admin deletes a module                               | Module no longer appears in list                             | ✅ Pass   |
-| T6      | Admin adds timetable with valid data                 | Entry appears in weekly timetable                            | ✅ Pass   |
-| T7      | Admin tries to add conflicting timetable             | Conflict is detected, entry is blocked                       | ✅ Pass   |
-| T8      | Student logs in and views timetable by week          | Only their group’s entries are shown                         | ✅ Pass   |
-| T9      | Student searches timetable by lecturer name          | Sessions by that lecturer (in group) are shown               | ✅ Pass   |
-| T10     | Student exports their timetable                      | CSV file is created for that group                           | ✅ Pass   |
-| T11     | Admin exports full timetable                         | Full timetable CSV is saved in file                          | ✅ Pass   |
-| T12     | Program restarts and data persists                   | Previously saved data loads correctly                        | ✅ Pass   |
-| T13     | Invalid inputs (letters in menu)                     | Error message shown, system doesn’t crash                    | ✅ Pass   |
-| T14     | Timetable shows “no entries” if none exist           | User is notified gracefully                                  | ✅ Pass   |
+| T1      | Admin logs in with correct password                  | Admin menu is shown                                          | Pass   |
+| T2      | Admin enters wrong password                          | Access is denied, prompt to retry                            | Pass   |
+| T3      | Admin adds a new module                              | Module is saved and viewable                                 | Pass   |
+| T4      | Admin edits an existing module                       | Changes are reflected in view                                | Pass   |
+| T5      | Admin deletes a module                               | Module no longer appears in list                             | Pass   |
+| T6      | Admin adds timetable with valid data                 | Entry appears in weekly timetable                            | Pass   |
+| T7      | Admin tries to add conflicting timetable             | Conflict is detected, entry is blocked                       | Pass   |
+| T8      | Student logs in and views timetable by week          | Only their group’s entries are shown                         | Pass   |
+| T9      | Student searches timetable by lecturer name          | Sessions by that lecturer (in group) are shown               | Pass   |
+| T10     | Student exports their timetable                      | CSV file is created for that group                           | Pass   |
+| T11     | Admin exports full timetable                         | Full timetable CSV is saved in file                          | Pass   |
+| T12     | Program restarts and data persists                   | Previously saved data loads correctly                        | Pass   |
+| T13     | Invalid inputs (letters in menu)                     | Error message shown, system doesn’t crash                    | Pass   |
+| T14     | Timetable shows “no entries” if none exist           | User is notified gracefully                                  | Pass   |
 
 ---
 
