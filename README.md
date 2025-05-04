@@ -1,46 +1,94 @@
-Overview:
-The NTU Timetabling System is a C++ console-based application designed to automate the scheduling and management of university timetables. It provides role-based access for administrators and students to manage or view timetables efficiently.
+# 🗓️ NTU Timetabling System
 
-Key Features:
-Admin Functionalities:
+A C++ console-based application designed to help universities manage timetables for modules, students, lecturers, and rooms. This system supports both admin and student roles with different capabilities, including timetable creation, conflict detection, and CSV export.
 
-Manage modules, students (with group assignment), lecturers, and rooms.
+---
 
-Generate and view weekly timetables.
+## 📌 Features
 
-Detect scheduling conflicts (lecturer, room, group).
+### 🔐 Admin
+- Add, edit, delete:
+  - Modules
+  - Students (with group assignment)
+  - Lecturers
+  - Rooms (with type specification)
+- Generate and view weekly timetables
+- Detect timetable conflicts (lecturer, room, or group)
+- Export the full timetable to CSV
 
-Export complete timetable to CSV.
+### 👩‍🎓 Student
+- Login using group name
+- View weekly group-specific timetable
+- Search timetable by module, lecturer, or room
+- Export personal timetable to CSV
 
-Student Functionalities:
+---
 
-Login as a student and enter their group name.
+## 📂 Folder Structure
 
-View group-specific timetable by week.
+```
+Timetable-System/
+├── SRC/        # All C++ source and header files
+├── BUILD/      # Compiled executable: timetable.exe
+├── DATA/       # CSV data files for modules, students, lecturers, rooms, timetable
+├── TESTS/      # Test cases and documentation
+```
 
-Search timetable by module, lecturer, or room.
+---
 
-Export personal timetable to CSV.
+## 🛠️ Build Instructions
 
-Project Structure:
-SRC/ – All source and header files (.cpp, .h)
-
-BUILD/ – Compiled application executable (timetable.exe)
-
-DATA/ – CSV files storing modules, students, lecturers, rooms, and timetables
-
-TESTS/ – Test documentation and usage notes
-
-Technologies Used:
-C++
-
-CSV-based data storage
-
-Object-oriented programming
-
-Console I/O operations
-
-How to Build & Run:
+### Compile the program (Windows PowerShell or Terminal):
+```bash
 g++ SRC/*.cpp -o BUILD/timetable.exe
-# or manually specify files if wildcard doesn't work
-g++ SRC/main.cpp SRC/Module.cpp SRC/Student.cpp ... -o BUILD/timetable.exe
+```
+
+> If wildcard expansion fails:
+```bash
+g++ SRC/main.cpp SRC/Module.cpp SRC/ModuleManager.cpp SRC/Student.cpp SRC/StudentManager.cpp SRC/Lecturer.cpp SRC/LecturerManager.cpp SRC/Room.cpp SRC/RoomManager.cpp SRC/TimetableEntry.cpp SRC/TimetableManager.cpp -o BUILD/timetable.exe
+```
+
+### Run:
+```bash
+./BUILD/timetable.exe
+```
+
+---
+
+## 💾 Data Format (CSV)
+
+- **Students**: ID, Name, Group
+- **Lecturers**: ID, Name, Subject
+- **Modules**: Code, Name, Lecturer
+- **Rooms**: Number, Type
+- **Timetable**: Group, Module, Lecturer, Room, Week, Day, Slot
+
+---
+
+## 🧪 Testing
+
+Located in the `/TESTS` directory:
+- Manual test case notes
+- Timetable exports for validation
+- Conflict scenarios
+
+---
+
+## 🔒 Authentication
+
+- Admin credentials: `"admin"`; password: `"admin123"`
+- Student login: `"student"` → Enter group name to access timetable
+
+---
+
+## 📌 Future Improvements
+
+- GUI interface using Qt or JavaFX
+- MySQL/PostgreSQL database integration
+- Web-based portal for student access
+
+---
+
+## 📄 License
+
+This project is for academic demonstration and coursework purposes. For any reuse or contribution, please contact the author.
